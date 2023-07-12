@@ -17,6 +17,7 @@ body{
     font-family: 'Poppins', sans-serif;
     font-weight: 400;
 }
+
 #subtext{
     font-family: 'Roboto Mono', monospace;
     font-size: 15px;
@@ -68,3 +69,21 @@ body{
     font-size: 40px;
 }
 
+
+#log{
+    text-align: center;
+}
+
+#logtitle{
+    font-size: 20px;
+    color: indigo;
+    font-family: 'Poppins', sans-serif;
+    font-weight: 400;
+    margin-bottom: 20px;
+}
+
+#CRUD{
+    display:flex;
+    gap: 75px;
+    justify-content: center;
+}
