@@ -1,9 +1,10 @@
 body{
     background-image: url(background.png);
     background-size: cover;
+    
 }
 #header{
-    padding-top: 140px;
+    padding-top: 40px;
     align-items: center;
 }
 
@@ -72,6 +73,7 @@ body{
 
 #log{
     text-align: center;
+    overflow-y:auto;
 }
 
 #logtitle{
@@ -79,7 +81,7 @@ body{
     color: indigo;
     font-family: 'Poppins', sans-serif;
     font-weight: 400;
-    margin-bottom: 20px;
+    margin-bottom: 5px;
 }
 
 #CRUD{
@@ -87,3 +89,23 @@ body{
     gap: 75px;
     justify-content: center;
 }
+#userform{
+    display: inline-block;
+    margin-bottom: 10px;
+}
+
+#username{
+    width: 200px;
+    display: inline;
+}
+
+#songname{
+    width: 200px;
+    display: inline;
+}
+
+#status{
+    width: 200px;
+    display: inline;
+}
+

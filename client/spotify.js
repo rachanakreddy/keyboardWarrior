@@ -26,7 +26,7 @@ const searchTrack = async(query) => {
     let authToken = await getAuthToken();
     let track = await getTrack(authToken, query, 0);
     return track;
-}
+};
 
 const randomTrack = async() => {
     let authToken = await getAuthToken();
@@ -37,12 +37,12 @@ const randomTrack = async() => {
     let random_offset = Math.floor(Math.random() * 1000); //offset for spotify search can go up to 1000
     let track = await getTrack(authToken, queryArr, random_offset);
     return track;
-}
+};
 
 const getTitle = async (track) => {
     const title = await track.name;
     return title;//return string
-}
+};
 
 const getArtist = async(track) => {
     const arr = [];
@@ -53,12 +53,12 @@ const getArtist = async(track) => {
     }
 
     return arr;
-}
+};
 
 const getArt = async(track) => {
     const art = await track.album.images[1].url; //300 x 400 do images[1]
     return art;
-}
+};
 
 const getSearchTrackinfo = async (search) => {
     const track = await searchTrack(search);
@@ -70,7 +70,7 @@ const getSearchTrackinfo = async (search) => {
         "artists": artists,
         "art": art
     }
-}
+};
 
 const getRandomTrackinfo = async () => {
     const track = await randomTrack();
@@ -82,11 +82,11 @@ const getRandomTrackinfo = async () => {
         "artists": artists,
         "art": art
     }
-}
+};
 
 
 export{
     getSearchTrackinfo,
     getRandomTrackinfo
-}
+};
 

@@ -14,6 +14,9 @@ app.use('/', express.static('client'));
 const clientID = '31a69cb16d5248f2870cae5abad2561b';
 const clientSecret = '917e79d402504281a7616258567680de';
 
+//google developer stuff
+const APIKey = 'AIzaSyB8va5CcCga3V_M_m086rHwSGRIw3rKfvY';
+
 app.get("/spotifyAuthToken", async (req, res) => {
     const auth = "Basic " + new Buffer.from(clientID + ':' + clientSecret).toString('base64');
 
@@ -65,6 +68,14 @@ app.post("/spotifyGetTrack", async (req, res) => {
 
     let data = await response.json();
 
+    res.send(data);
+});
+
+app.post("/youtubeGetVideo", async (req, res) => {
+    const url = "https://youtube.googleapis.com/youtube/v3/search?part=snippet&maxResults=1&q=" + req.body.query +
+                "&type=video&videoEmbeddable=true&key=" + APIKey;
+    let response = await fetch(url);
+    let data = await response.json();
     res.send(data);
 });
 
