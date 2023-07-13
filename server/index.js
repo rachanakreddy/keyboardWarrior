@@ -27,13 +27,7 @@ app.get("/spotifyAuthToken", async (req, res) => {
 
     var urlencoded = new URLSearchParams();
     urlencoded.append("grant_type", "client_credentials");
-
-    var authOptions = {
-    method: 'POST',
-    headers: authHeaders,
-    body: urlencoded,
-    redirect: 'follow'
-    };
+    var authOptions = {method: 'POST', headers: authHeaders, body: urlencoded,redirect: 'follow'};
 
     let response = await fetch("https://accounts.spotify.com/api/token", authOptions);
     let data = await response.json();
@@ -42,16 +36,10 @@ app.get("/spotifyAuthToken", async (req, res) => {
 });
 
 app.post("/spotifyGetTrack", async (req, res) => {
-
-
     var trackHeaders = new Headers();
 
     trackHeaders.append("Authorization", 'Bearer ' + req.body.token);
-    var trackOptions = {
-        method: 'GET',
-        headers: trackHeaders,
-        redirect: 'follow'
-    }
+    var trackOptions = {method: 'GET', headers: trackHeaders,redirect: 'follow'};
     let finalQuery = ""
     if(req.body.query.length > 1){
         for(let i = 0; i < req.body.query.length -1; i++){
@@ -59,13 +47,10 @@ app.post("/spotifyGetTrack", async (req, res) => {
         }
         finalQuery += req.body.query[req.body.query.length-1];
     }
-    else{
-        finalQuery = req.body.query[0];
-    }
+    else{ finalQuery = req.body.query[0];}
+
     let url = "https://api.spotify.com/v1/search?q=" + finalQuery +"&type=track&limit=1&offset=" + req.body.offset;
-
     let response = await fetch(url, trackOptions);
-
     let data = await response.json();
 
     res.send(data);
@@ -78,6 +63,8 @@ app.post("/youtubeGetVideo", async (req, res) => {
     let data = await response.json();
     res.send(data);
 });
+
+//CRUD operations
 
 app.listen(port, () => {
     console.log(`Hello we are on port: ${port}`);

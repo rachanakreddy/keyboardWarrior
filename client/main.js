@@ -12,6 +12,14 @@ const titleElement = document.getElementById("songTitle");
 const artistElement = document.getElementById("songArtist");
 const youtubeElement = document.getElementById("youtubeLink");
 
+const createButton = document.getElementById("create");
+const readButton = document.getElementById("read");
+const updateButton = document.getElementById("update");
+const deleteButton = document.getElementById("delete");
+
+const userNameElem = document.getElementById("username");
+const songNameElem = document.getElementById("songname");
+const statusElem = document.getElementById("status");
 
 searchButton.addEventListener("click", async () => {
     if(searchElement.value === null || searchElement.value.length === 0){ alert("Invalid search");}
@@ -36,12 +44,39 @@ randomButton.addEventListener("click", async () => {
 
 });
 
+//CRUD BUTTONS
+createButton.addEventListener("click", async () => {
+    const username = userNameElem.value;
+    const songname = songNameElem.value;
+    const status = statusElem.value;
+    const json = await createLog(username, songname, status);
+});
 
+readButton.addEventListener("click", async () => {
+    const username = userNameElem.value;
+    const json = await readLog(username);
+});
+
+updateButton.addEventListener("click", async () => {
+    const username = userNameElem.value;
+    const songname = songNameElem.value;
+    const status = statusElem.value;
+    const json = await updateLog(username, songname, status);
+});
+
+deleteButton.addEventListener("click", async () => {
+    const username = userNameElem.value;
+    const songname = songNameElem.value;
+    const json = await readLog(username, songname);
+});
+
+
+//display composition
 async function displayComp(title, artist){
     let query = window.encodeURIComponent("piano tutorial " + title + " " + artist);
     let vidData = await youtubeUtil.getVideoInfo(query);
     console.log(vidData);
-    youtubeLink.innerHTML = "";
+    youtubeElement.innerHTML = "";
     if(!vidData.isComp){
         document.getElementById("vidLink").innerText = "No available compositions. Try changing your search or a different song!"
     }
@@ -51,6 +86,6 @@ async function displayComp(title, artist){
         temp.width = "420";
         temp.src = "https://www.youtube.com/embed/" + vidData.ytID;
         document.getElementById("vidLink").innerText = "https://www.youtube.com/watch?v=" + vidData.ytID;
-        youtubeLink.appendChild(temp);
+        youtubeElement.appendChild(temp);
     }
 }
