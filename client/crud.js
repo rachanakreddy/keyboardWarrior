@@ -1,18 +1,18 @@
 export async function createLog(user, song, status) {
-    const response = await fetch('/create?user=${user}&song=${song}&status=${status}', {
+    const response = await fetch(`/create?user=${user}&song=${song}&status=${status}`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({ user: user, song: song, status: status}),
+      }
     });
+
     const data = await response.json();
     return data;
   }
   
   export async function readLog(user) {
     try {
-      const response = await fetch('/read?user=${user}', {
+      const response = await fetch(`/read?user=${user}`, {
         method: 'GET',
       });
       const data = await response.json();
@@ -22,9 +22,9 @@ export async function createLog(user, song, status) {
     }
   }
   
-  export async function updateLog(name) {
+  export async function updateLog(name, song, status) {
     try{
-      const response = await fetch('/update?user=${name}&song=${song}&status=${status}', {
+      const response = await fetch(`/update?user=${name}&song=${song}&status=${status}`, {
         method: 'PUT',
       });
       const data = await response.json();
@@ -34,9 +34,9 @@ export async function createLog(user, song, status) {
     }
   }
   
-  export async function deleteLog(name) {
+  export async function deleteLog(name, song) {
     try{
-      const response = await fetch('/delete?user=${name}&song=${song}', {
+      const response = await fetch(`/delete?user=${name}&song=${song}`, {
         method: 'DELETE',
       });
       const data = await response.json();

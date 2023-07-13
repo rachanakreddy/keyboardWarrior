@@ -1,6 +1,8 @@
 
 import * as spotifyUtil from './spotify.js';
 import * as youtubeUtil from './youtube.js';
+import * as crud from './crud.js';
+
 //user interaction
 const searchElement = document.getElementById("search");
 const searchButton = document.getElementById("searchButton");
@@ -49,33 +51,67 @@ createButton.addEventListener("click", async () => {
     const username = userNameElem.value;
     const songname = songNameElem.value;
     const status = statusElem.value;
-    const json = await createLog(username, songname, status);
+    const json = await crud.createLog(username, songname, status);
+    await logRender(json, document.getElementById("logTable"), username);
 });
 
 readButton.addEventListener("click", async () => {
     const username = userNameElem.value;
-    const json = await readLog(username);
+    const json = await crud.readLog(username);
+    await logRender(json, document.getElementById("logTable"), username);
 });
 
 updateButton.addEventListener("click", async () => {
     const username = userNameElem.value;
     const songname = songNameElem.value;
     const status = statusElem.value;
-    const json = await updateLog(username, songname, status);
+    const json = await crud.updateLog(username, songname, status);
+    await logRender(json, document.getElementById("logTable"), username);
 });
 
 deleteButton.addEventListener("click", async () => {
     const username = userNameElem.value;
     const songname = songNameElem.value;
-    const json = await readLog(username, songname);
+    const json = await crud.deleteLog(username, songname);
+    await logRender(json, document.getElementById("logTable"), username);
 });
 
+
+async function logRender(json, element, user){
+    let userData = json[user];
+
+    element.innerHTML = "";
+    const table = document.createElement("table");
+    const hRow = document.createElement("tr");
+    const songH = document.createElement("th");
+    songH.innerText = "Song";
+    const statusH = document.createElement("th");
+    statusH.innerText = "Status";
+
+    hRow.appendChild(songH);
+    hRow.appendChild(statusH);
+    table.appendChild(hRow);
+    if(!(userData === undefined)){
+        for(let i = 0; i < userData.length; i++){
+            if(userData[i] === null) {continue;}
+            let currRow = document.createElement("tr");
+            let songElem = document.createElement("td");
+            songElem.innerText = userData[i].song;
+            let statusElem =document.createElement("td");
+            statusElem.textContent = userData[i].status;
+
+            currRow.appendChild(songElem);
+            currRow.appendChild(statusElem);
+            table.appendChild(currRow);
+        }
+    }
+    element.appendChild(table);
+}
 
 //display composition
 async function displayComp(title, artist){
     let query = window.encodeURIComponent("piano tutorial " + title + " " + artist);
     let vidData = await youtubeUtil.getVideoInfo(query);
-    console.log(vidData);
     youtubeElement.innerHTML = "";
     if(!vidData.isComp){
         document.getElementById("vidLink").innerText = "No available compositions. Try changing your search or a different song!"

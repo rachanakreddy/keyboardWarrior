@@ -1,5 +1,6 @@
 import express from 'express';
 import logger from 'morgan';
+import * as database from './database.js';
 
 const app = express();
 const port = process.env.PORT || 3000;
@@ -15,7 +16,7 @@ const clientID = '31a69cb16d5248f2870cae5abad2561b';
 const clientSecret = '917e79d402504281a7616258567680de';
 
 //google developer stuff
-const APIKey = 'AIzaSyB8va5CcCga3V_M_m086rHwSGRIw3rKfvY';
+//const APIKey = 'AIzaSyB8va5CcCga3V_M_m086rHwSGRIw3rKfvY';
 
 app.get("/spotifyAuthToken", async (req, res) => {
     const auth = "Basic " + new Buffer.from(clientID + ':' + clientSecret).toString('base64');
@@ -65,7 +66,50 @@ app.post("/youtubeGetVideo", async (req, res) => {
 });
 
 //CRUD operations
-
+app.post('/create', async (req, res) => {
+    const {user, song, status } = req.query;
+    if(user === undefined || song === undefined || status === undefined){
+        res.status(400).send(JSON.stringify({status: "failed"})); 
+    }
+    else{
+        let json = await database.createLog(user, song, status);
+        res.status(200).send(JSON.stringify(json));
+    }
+  });
+  
+app.get('/read', async (req, res) => {
+    const {user} = req.query;
+    if(user === undefined){
+        res.status(400).send(JSON.stringify({status: "failed"})); 
+    }
+    else{
+        let json = await database.readLog(user);
+        res.status(200).send(JSON.stringify(json));
+    }
+  });
+  
+app.put('/update', async(req, res) => {
+    const {user, song, status } = req.query;
+    if(user === undefined || song === undefined || status === undefined){
+        res.status(400).send(JSON.stringify({status: "failed"})); 
+    }
+    else{
+        let json = await database.updateLog(user, song, status);
+        res.status(200).send(JSON.stringify(json));
+    }
+  });
+  
+app.delete('/delete', async(req, res)=> {
+    const {user, song} = req.query;
+    if(user === undefined || song === undefined ){
+        res.status(400).send(JSON.stringify({status: "failed"})); 
+    }
+    else{
+        let json = await database.deleteLog(user, song);
+        res.status(200).send(JSON.stringify(json));
+    }
+  });
+  
 app.listen(port, () => {
     console.log(`Hello we are on port: ${port}`);
 });

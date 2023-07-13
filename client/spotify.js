@@ -69,7 +69,7 @@ const getSearchTrackinfo = async (search) => {
         "name": title,
         "artists": artists,
         "art": art
-    }
+    };
 };
 
 const getRandomTrackinfo = async () => {
@@ -81,7 +81,7 @@ const getRandomTrackinfo = async () => {
         "name": title,
         "artists": artists,
         "art": art
-    }
+    };
 };
 
 
