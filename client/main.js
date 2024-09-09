@@ -107,11 +107,11 @@ async function logRender(json, element, user){
     }
     element.appendChild(table);
 }
-
 //display composition
 async function displayComp(title, artist){
     let query = window.encodeURIComponent("piano tutorial " + title + " " + artist);
     let vidData = await youtubeUtil.getVideoInfo(query);
+    console.log(vidData);
     youtubeElement.innerHTML = "";
     if(!vidData.isComp){
         document.getElementById("vidLink").innerText = "No available compositions. Try changing your search or a different song!"

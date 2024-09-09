@@ -13,14 +13,13 @@ async function getVideo(query){
 }
 
 const isPianoComp = async(video) =>{
-    if(video.items.length === 0){
+    if(video.items === undefined || video.items[0].length === 0){
         return false;
     }
     let title = await video.items[0].snippet.title;
     title = title.replace(/[^ a-z0-9]/gi, '');
     let titleArr =title.split(' ');
     for(let i = 0; i < titleArr.length; i++){
-        console.log(titleArr[i].toLowerCase());
         if(titleArr[i].toLowerCase() == "piano" ){
             return true;
         }
@@ -30,7 +29,7 @@ const isPianoComp = async(video) =>{
 };
 
 const getVideoID = async(video) => {
-    if(video.items.length === 0){
+    if(video.items === undefined || video.items[0].length === 0){
         return 0;
     }
     const retVideoID = await video.items[0].id.videoId;

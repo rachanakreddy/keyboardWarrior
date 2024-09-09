@@ -1,4 +1,9 @@
 
+async function login(){
+    const res = await fetch('/login', {method: "GET"});
+    let token = await res.json();
+    return token.access_token;
+}
 async function getAuthToken(){
     const res = await fetch('/spotifyAuthToken', {method: "GET"});
     let token = await res.json();
