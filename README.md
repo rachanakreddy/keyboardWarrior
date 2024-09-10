@@ -3,14 +3,13 @@ A web application that helps users find piano compositions of their favorite son
 
 Using: HTML, CSS, Javascript, Bootstrap, MongoDB, Spotify API, Youtube API
 
-Instructions
+<b>Instructions</b>
 1. To run the project, first run “npm install” for “express”, “morgan”, and “mongodb”
 2. Check that “type”:“module” is in the package.json folder.
 3. Run “node server/index.js” in the terminal of the root folder(“keyboardWarrior”).
 4. There should be a “Hello we are on port 3000” message. Then, navigate to the
 application by heading to “localhost:3000” in a web browserJ
 
-Explanation of the how different components of the application works:
 
 <b> Client-Side Architecture </b>
 
@@ -38,7 +37,7 @@ In this application, the user would enter the search query of a song they would 
 
 The rest of the application is simple CRUD operations, specifically for a user to keep track of what songs they're currently learning or may want to learn in the future. The user needs to enter their username, and optionally their song and/or status of the song depending on which CRUD operation is being used. Then, the display will render a list of all their songs and the status of their songs. 
 
-<b>The Mechanics<b>
+<b>The Mechanics</b>
 
 First, I used Spotify API's search request and passed through the text from the user's search query along with an offset of 0, so that the first, a.k.a most relevant, result was returned. 
 
